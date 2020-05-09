@@ -1,4 +1,4 @@
-import Level
+from task import level
 import uuid
 
 
@@ -10,7 +10,7 @@ class Task:
     solution_text = ""
 
     # Complexity
-    level = Level.Level
+    level = level.Level
 
     # Hints
     f_hint = ""
@@ -22,7 +22,7 @@ class Task:
     num_ratings = 0  # number of users who have rated the problem
     rating = 0.0
 
-    def __init__(self, statement_text, solution_text, lev, f_hint, s_hint, rating, num_ratings):
+    def __init__(self, statement_text, solution_text, lev, f_hint, s_hint='', rating=0.0, num_ratings=0):
         self.id = uuid.uuid1()
 
         self.level.set_level(lev)
@@ -77,4 +77,9 @@ class Task:
     def get_level_name(self):
         return self.level.get_level_name()
 
-    
+    def get_id(self):
+        return self.id
+
+    def get_name(self):
+        # returns task name
+        return 'task name'
