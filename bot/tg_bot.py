@@ -11,8 +11,13 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 class TGBot:
     def __init__(self):
-        self.updater = Updater(token='1226373363:AAFYKuDWmHpiuyHjTeoBReYVP1P1nwbCASM', use_context=True)
+        REQUEST_KWARGS = {
+            'proxy_url': 'http://139.180.217.250:8080/',
+        }
+        self.updater = Updater(token='TOKEN', request_kwargs=REQUEST_KWARGS, use_context=True)
+        self.add_handlers()
 
+    def add_handlers(self):
         self.updater.dispatcher.add_handler(CommandHandler('give_task', self.give_task))
         self.updater.dispatcher.add_handler(CommandHandler('start', self.start))
         self.updater.dispatcher.add_handler(CallbackQueryHandler(self.give_task))
