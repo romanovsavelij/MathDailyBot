@@ -9,9 +9,6 @@ class Task:
     statement_text = ""
     solution_text = ""
 
-    # Complexity
-    level = level.Level
-
     # Hints
     f_hint = ""
     s_hint = ""
@@ -25,6 +22,7 @@ class Task:
     def __init__(self, statement_text, solution_text, lev, f_hint, s_hint='', rating=0.0, num_ratings=0):
         self.id = uuid.uuid1()
 
+        self.level = level.Level()
         self.level.set_level(lev)
 
         self.statement_text = statement_text
@@ -83,3 +81,7 @@ class Task:
     def get_name(self):
         # returns task name
         return 'task name'
+
+    @staticmethod
+    def get_subjects_list():
+        return ['Logic', 'Set theory', 'Combinatorics']
