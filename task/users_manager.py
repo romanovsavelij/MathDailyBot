@@ -2,10 +2,9 @@ from task.user import User
 from typing import List
 
 
-# List of users
 class UsersManager:
     def __init__(self):
-        self.users = List[User]
+        self.users: List[User] = []
 
     def add_user(self, user: User):
         self.users.append(user)
@@ -16,10 +15,15 @@ class UsersManager:
     def get_list_of_users(self):
         return self.users
 
-    def user_by_id(self, user_id: int):
-        user_id_list = [user.get_user_id() for user in self.users]
-        index = user_id_list.index(self, user_id)
-        return self.users[index]  # reference
+    def get_user_by_id(self, user_id: int) -> User:
+        # This is copy!!!
+        for user in self.users:
+            if user.get_user_id() == user_id:
+                return user
+        print('No such a user found')
 
-    def get_user(self, index):
-        return self.users[index]
+    def get_user_ind_by_id(self, user_id: int) -> int:
+        for ind, user in enumerate(self.users):
+            if user.get_user_id() == user_id:
+                return ind
+        print('No such a user found')

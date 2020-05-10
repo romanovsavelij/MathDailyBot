@@ -41,7 +41,11 @@ class TGBot:
                                  reply_markup=reply_markup)
 
     def give_task(self, update, context):
-        task_statement, task_id = self.task_manager.get_task(update.effective_chat.id)
+        try:
+            task_statement, task_id = self.task_manager.get_task(update.effective_chat.id)
+        except KeyError as e:
+            context.bot.send_message(chat_id=update.effective_chat.id, text=str(e))
+            return
         reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton('Hint',
                                                                    callback_data=('Hint' + '&' + str(task_id))),
                                               InlineKeyboardButton('Solution',
@@ -58,13 +62,14 @@ class TGBot:
         query_type, task_id = query.data.split('&')
         if query_type == 'Hint':
             context.bot.send_message(chat_id=user_id,
-                                     text=f'Hint: {self.task_manager.get_hint(user_id, task_id)}')
+                                     text=f'Hint: {self.task_manager.get_hint(user_id, int(task_id))}')
         elif query_type == 'Solution':
             context.bot.send_message(chat_id=user_id,
-                                     text=f'Solution: {self.task_manager.get_solution(user_id, task_id)}')
+                                     text=f'Solution: {self.task_manager.get_solution(user_id, int(task_id))}')
         elif query_type in Task.get_subjects_list():
-            print(f'set subject to {query_type}')
             self.task_manager.set_subject(user_id, query_type)
+            context.bot.send_message(chat_id=user_id,
+                                     text=f'Subject set to {query_type}')
 
     def button_messages_handler(self, update, context):
         message_text = update.message.text

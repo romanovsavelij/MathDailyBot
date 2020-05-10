@@ -21,9 +21,9 @@ class Task:
     # num_ratings = 0  # number of users who have rated the problem
     # rating = 0.0
 
-    def __init__(self, name, statement, solution, hint='', level=0,
-                 subject=''):
+    def __init__(self, name, statement, solution, hint='', level=0, subject=''):
         self.name = name
+        self.id = hash(name)
 
         self.level = Level()
         self.level.set_level(level)
@@ -37,7 +37,6 @@ class Task:
         self.subject = subject
 
     # Basic
-    @staticmethod
     def get_task_name(self):
         return self.name
 
@@ -46,6 +45,9 @@ class Task:
 
     def get_solution(self):
         return self.solution
+
+    def get_id(self):
+        return self.id
 
     def ask_for_hint(self):
         if not self.is_hint:
