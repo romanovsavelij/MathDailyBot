@@ -8,4 +8,4 @@ class User:
         self.solved_task_ids.append(task_id)
 
     def is_solved(self, task_id: str) -> True:
-        return false
+        return False

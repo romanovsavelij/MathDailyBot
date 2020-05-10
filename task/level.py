@@ -1,6 +1,3 @@
-import enum
-
-
 class Level:
     levels = ('easy_peasy', 'easy', 'fair', 'hard', 'insane')
     task_level = 0

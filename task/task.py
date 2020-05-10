@@ -1,28 +1,29 @@
-from task import level
+from task.level import Level
+from task.database import Database
 import uuid
 
 
 class Task:
-    # Topic (in further updates)
+    # Subject
+    Subject = ''
 
     # Basic
-    statement_text = ""
-    solution_text = ""
+    statement = ''
+    solution = ''
 
     # Complexity
-    level = level.Level
+    level = Level()
 
     # Hints
-    f_hint = ""
-    s_hint = ""
-    hint_count = 0  # 0, 1 or 2 depending on how many hints the user has
-    # asked for
+    hint = ''
+    is_hint = False  # True if user has asked for a hint
 
-    # Rating
-    num_ratings = 0  # number of users who have rated the problem
-    rating = 0.0
+    # Rating (in further updates)
+    # num_ratings = 0  # number of users who have rated the problem
+    # rating = 0.0
 
-    def __init__(self, statement_text, solution_text, lev, f_hint, s_hint='', rating=0.0, num_ratings=0):
+    def __init__(self, statement_text, solution_text, lev, f_hint,
+                 s_hint='', rating=0.0, num_ratings=0):
         self.id = uuid.uuid1()
 
         self.level.set_level(lev)
@@ -46,29 +47,13 @@ class Task:
     def get_solution(self):
         return self.solution_text
 
-    # Rating
-    def get_rating(self):
-        return self.rating
-
-    def rate(self, new_rating):
-        self.rating = (self.rating * self.num_ratings + new_rating) / \
-                      (self.num_ratings + 1)
-        self.num_ratings += 1
-
     # Hints
     def ask_for_hint(self):
-        if not self.hint_count:
+        if not self.is_hint:
             self.hint_count += 1
             return self.f_hint
-        if self.hint_count == 1:
-            self.hint_count += 1
-            return self.s_hint
         else:
             raise Exception("No more hints")
-
-            '''return ("This was the last hint. You can see the solution, "
-                    "but we recommend that you spend enough time "
-                    "on the problem before doing so") ''' # Этот месседж можно засунуть в метод бота
 
     # Levels
     def set_level(self, lev):
@@ -83,3 +68,4 @@ class Task:
     def get_name(self):
         # returns task name
         return 'task name'
+
