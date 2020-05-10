@@ -1,63 +1,58 @@
 from task.level import Level
-from task.database import Database
-import uuid
 
 
 class Task:
-    # Subject
-    Subject = ''
-
     # Basic
+    name = ''
     statement = ''
     solution = ''
 
-<<<<<<< HEAD
     # Complexity
     level = Level()
 
-=======
->>>>>>> e4b6132d7cff0feb6c55ecddaeaec1a050389cf0
     # Hints
     hint = ''
     is_hint = False  # True if user has asked for a hint
+
+    # Subject
+    subject = ''
 
     # Rating (in further updates)
     # num_ratings = 0  # number of users who have rated the problem
     # rating = 0.0
 
-    def __init__(self, statement_text, solution_text, lev, f_hint,
-                 s_hint='', rating=0.0, num_ratings=0):
-        self.id = uuid.uuid1()
+    def __init__(self, name, statement, solution, hint='', level=0,
+                 subject=''):
+        self.name = name
 
-        self.level = level.Level()
-        self.level.set_level(lev)
+        self.level = Level()
+        self.level.set_level(level)
 
-        self.statement_text = statement_text
-        self.solution_text = solution_text
+        self.statement = statement
+        self.solution = solution
 
-        self.level = lev
+        self.hint = hint
+        self.is_hint = 0
 
-        self.f_hint = f_hint
-        self.s_hint = s_hint
-        self.hint_count = 0
-
-        self.num_ratings = rating
-        self.rating = num_ratings
+        self.subject = subject
 
     # Basic
+    @staticmethod
+    def get_task_name(self):
+        return self.name
+
     def get_statement(self):
-        return self.statement_text
+        return self.statement
 
     def get_solution(self):
-        return self.solution_text
+        return self.solution
 
-    # Hints
     def ask_for_hint(self):
         if not self.is_hint:
-            self.hint_count += 1
-            return self.f_hint
+            self.is_hint = True
+            return self.hint
         else:
-            raise Exception("No more hints")
+            return "No more hints are available. Would you like to see the solution?"
 
     # Levels
     def set_level(self, lev):
@@ -66,16 +61,6 @@ class Task:
     def get_level_name(self):
         return self.level.get_level_name()
 
-    def get_id(self):
-        return self.id
-
-    def get_name(self):
-        # returns task name
-        return 'task name'
-
-<<<<<<< HEAD
-=======
     @staticmethod
     def get_subjects_list():
         return ['Logic', 'Set theory', 'Combinatorics']
->>>>>>> e4b6132d7cff0feb6c55ecddaeaec1a050389cf0
