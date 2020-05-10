@@ -19,6 +19,8 @@ class Database:
                 continue
             if 'Statement' in data and 'Solution' in data and 'Subject' in data and \
                     'Name' in data and 'Level' in data and 'Hint' in data:
-                tasks.append(Task(data['Name'], data['Statement'], data['Solution'],
-                                  data['Hint'], data['Level'], data['Subject']))
+                ...
+                # tasks.append(Task(data['Name'], data['Statement'], data['Solution'],
+                #                   data['Hint'], data['Level'], data['Subject']))
+        tasks.append(Task('statement', 'solution', 0, 'hint1', 'hint2'))
         return tasks

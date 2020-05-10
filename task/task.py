@@ -11,9 +11,12 @@ class Task:
     statement = ''
     solution = ''
 
+<<<<<<< HEAD
     # Complexity
     level = Level()
 
+=======
+>>>>>>> e4b6132d7cff0feb6c55ecddaeaec1a050389cf0
     # Hints
     hint = ''
     is_hint = False  # True if user has asked for a hint
@@ -26,6 +29,7 @@ class Task:
                  s_hint='', rating=0.0, num_ratings=0):
         self.id = uuid.uuid1()
 
+        self.level = level.Level()
         self.level.set_level(lev)
 
         self.statement_text = statement_text
@@ -69,3 +73,9 @@ class Task:
         # returns task name
         return 'task name'
 
+<<<<<<< HEAD
+=======
+    @staticmethod
+    def get_subjects_list():
+        return ['Logic', 'Set theory', 'Combinatorics']
+>>>>>>> e4b6132d7cff0feb6c55ecddaeaec1a050389cf0

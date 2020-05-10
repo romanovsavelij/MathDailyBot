@@ -1,6 +1,7 @@
+from typing import Tuple
+
 from task.database import Database
 from task.users_manager import UsersManager
-
 
 class TaskManager:
     def __init__(self):
@@ -27,11 +28,12 @@ class TaskManager:
     def get_solution(self, user_id: int, task_id):
         return 'solution solution ... solution solution'
 
-    def get_task(self, user_id: int):
+    def get_task(self, user_id: int) -> Tuple[str, str]:
+        # Returns statement and task id
         settings = self.get_settings(user_id)
         tasks = self.database.get_tasks(settings)
         # check that user hasn't already solved this problem
         task = tasks[0]
         title = f'**{task.get_name()}**'
         statement = task.get_statement()
-        return f'{title}\n\n{statement}'
+        return f'{title}\n\n{statement}', task.get_id()
