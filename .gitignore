@@ -2,3 +2,5 @@
 venv
 bot/__pycache__
 task/__pycache__
+keys.py
+__pycache__

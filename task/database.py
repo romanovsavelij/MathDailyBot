@@ -1,12 +1,12 @@
 from typing import Dict, List
 from airtable import Airtable
 from task.task import Task
+from keys import AIRTABLE_API_KEY, AIRTABLE_ID
 
 
 class Database:
     def __init__(self):
-        self.table = Airtable('appffcIXRvvuxka4B', 'Problems',
-                              api_key='keyZfwZUbtTad4m4q')
+        self.table = Airtable(AIRTABLE_ID, 'Problems', api_key=AIRTABLE_API_KEY)
 
     def get_tasks(self, user_task_settings) -> List[Task]:
         # Task settings is a dictionary {Subject: {}, Level: {}}

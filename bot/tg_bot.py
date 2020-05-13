@@ -7,6 +7,7 @@ from telegram.ext import MessageHandler, Filters
 
 from task.task import Task
 from task.task_manager import TaskManager
+from keys import TG_BOT_TOKEN, PROXY
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -15,11 +16,11 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 class TGBot:
     def __init__(self):
         REQUEST_KWARGS = {
-            'proxy_url': 'socks5://proxy.kuldoshin.site:2453',
+            'proxy_url': PROXY,
         }
 
         self.task_manager = TaskManager()
-        self.updater = Updater(token='1226373363:AAFYKuDWmHpiuyHjTeoBReYVP1P1nwbCASM', use_context=True, request_kwargs=REQUEST_KWARGS)
+        self.updater = Updater(token=TG_BOT_TOKEN, use_context=True, request_kwargs=REQUEST_KWARGS)
         self.add_handlers()
 
     def add_handlers(self):
@@ -34,7 +35,7 @@ class TGBot:
     def start(self, update: telegram.update, context):
         self.task_manager.register_new_user(update.effective_chat.id)
 
-        custom_keyboard = [[KeyboardButton('Give task')]]
+        custom_keyboard = [[KeyboardButton('Give task'), KeyboardButton('Set subject')]]
         reply_markup = ReplyKeyboardMarkup(custom_keyboard)
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text="Hey, take a task to solve!",
@@ -76,6 +77,8 @@ class TGBot:
         print(f'message_text: {message_text}')
         if message_text == 'Give task':
             self.give_task(update, context)
+        elif message_text == 'Set subject':
+            self.set_subject(update, context)
         else:
             context.bot.send_message(chat_id=update.effective_chat.id, text='Sorry, I don\'t understand you.')
 
@@ -84,12 +87,10 @@ class TGBot:
         for subject in Task.get_subjects_list():
             keyboard.append(InlineKeyboardButton(subject, callback_data=(subject + '&')))
         reply_markup = InlineKeyboardMarkup([keyboard])
-        # add Combinatorics
         context.bot.send_message(chat_id=update.effective_chat.id, text='Choose a subject, please',
                                  reply_markup=reply_markup)
 
     def set_level(self, update: telegram.update, context):
-        # todo
         ...
 
     def help(self, update, context):
