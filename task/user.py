@@ -13,6 +13,12 @@ class User:
         self.given_tasks: List[Task] = []
         self.solved_tasks: List[Task] = []
 
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __hash__(self):
+        return self.id
+
     def give_task(self, task: Task):
         self.given_tasks.append(task)
 

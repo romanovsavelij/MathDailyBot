@@ -1,29 +1,21 @@
 from task.user import User
-from typing import List
+from typing import List, Dict
 
 
 class UsersManager:
     def __init__(self):
-        self.users: List[User] = []
+        self.users: Dict[int, User] = {}
 
     def add_user(self, user: User):
-        self.users.append(user)
+        self.users[user.id] = user
+        # self.users.append(user)
 
     def erase_user(self, user: User):
-        self.users.remove(user)
+        del self.users[user.id]
+        # self.users.remove(user)
 
-    def get_list_of_users(self):
+    def get_users(self):
         return self.users
 
     def get_user_by_id(self, user_id: int) -> User:
-        # This is copy!!!
-        for user in self.users:
-            if user.get_user_id() == user_id:
-                return user
-        print('No such a user found')
-
-    def get_user_ind_by_id(self, user_id: int) -> int:
-        for ind, user in enumerate(self.users):
-            if user.get_user_id() == user_id:
-                return ind
-        print('No such a user found')
+        return self.users[user_id]

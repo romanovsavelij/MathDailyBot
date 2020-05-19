@@ -5,6 +5,7 @@ import logging
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
 
+from bot.constants import START_TEXT, INVALID_COMMAND, CHOOSE_SUBJECT, INSTRUCTION
 from task.task import Task
 from task.task_manager import TaskManager
 from keys import TG_BOT_TOKEN, PROXY
@@ -38,7 +39,7 @@ class TGBot:
         custom_keyboard = [[KeyboardButton('Give task'), KeyboardButton('Set subject')]]
         reply_markup = ReplyKeyboardMarkup(custom_keyboard)
         context.bot.send_message(chat_id=update.effective_chat.id,
-                                 text="Hey, take a task to solve!",
+                                 text=START_TEXT,
                                  reply_markup=reply_markup)
 
     def give_task(self, update, context):
@@ -80,14 +81,14 @@ class TGBot:
         elif message_text == 'Set subject':
             self.set_subject(update, context)
         else:
-            context.bot.send_message(chat_id=update.effective_chat.id, text='Sorry, I don\'t understand you.')
+            context.bot.send_message(chat_id=update.effective_chat.id, text=INVALID_COMMAND)
 
     def set_subject(self, update: telegram.update, context):
         keyboard = []
         for subject in Task.get_subjects_list():
             keyboard.append(InlineKeyboardButton(subject, callback_data=(subject + '&')))
         reply_markup = InlineKeyboardMarkup([keyboard])
-        context.bot.send_message(chat_id=update.effective_chat.id, text='Choose a subject, please',
+        context.bot.send_message(chat_id=update.effective_chat.id, text=CHOOSE_SUBJECT,
                                  reply_markup=reply_markup)
 
     def set_level(self, update: telegram.update, context):
@@ -95,10 +96,7 @@ class TGBot:
 
     def help(self, update, context):
         context.bot.send_message(chat_id=update.effective_chat.id,
-                                 text='You can control me by sending these commands:\n\n' +
-                                      '/setsubject - set tasks\' subject\n' +
-                                      '/setlevel - set tasks\' level\n' +
-                                      '/givetask - give new task')
+                                 text=INSTRUCTION)
 
     def run(self):
         self.updater.start_polling()

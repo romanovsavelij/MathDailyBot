@@ -15,12 +15,12 @@ class TaskManager:
         self.users_manager.add_user(new_user)
 
     def set_subject(self, user_id: int, subject: str):
-        user_ind = self.users_manager.get_user_ind_by_id(user_id)
-        self.users_manager.users[user_ind].set_settings_subject(subject)
+        # user_ind = self.users_manager.get_user_ind_by_id(user_id)
+        self.users_manager.users[user_id].set_settings_subject(subject)
 
     def set_level(self, user_id: int, level: str):
-        user_ind = self.users_manager.get_user_ind_by_id(user_id)
-        self.users_manager.users[user_ind].set_settings_level(level)
+        # user_ind = self.users_manager.get_user_ind_by_id(user_id)
+        self.users_manager.users[user_id].set_settings_level(level)
 
     def get_settings(self, user_id: int):
         return self.users_manager.get_user_by_id(user_id).get_settings()
@@ -31,8 +31,8 @@ class TaskManager:
     def get_hint(self, user_id: int, task_id: int):
         if not self.users_manager.get_user_by_id(user_id).get_given_tasks():  # At least one task has been given
             return "Attempted to get a hint before the problem was given"
-        user_ind = self.users_manager.get_user_ind_by_id(user_id)
-        return self.users_manager.users[user_ind].get_task_by_id(task_id).ask_for_hint()
+        # user_ind = self.users_manager.get_user_ind_by_id(user_id)
+        return self.users_manager.users[user_id].get_task_by_id(task_id).ask_for_hint()
 
     def get_solution(self, user_id: int, task_id: int):
         assert self.users_manager.get_user_by_id(user_id).get_given_tasks()  # At least one task has been given
@@ -48,8 +48,8 @@ class TaskManager:
             raise KeyError('There are no problems meeting your criteria. '
                            'Please choose a different subject and/or complexity')
         task = relevant_tasks[0]
-        user_ind = self.users_manager.get_user_ind_by_id(user_id)
-        self.users_manager.users[user_ind].give_task(task)
+        # user_ind = self.users_manager.get_user_ind_by_id(user_id)
+        self.users_manager.users[user_id].give_task(task)
         title = f'**{task.get_task_name()}**'
         statement = task.get_statement()
         return f'{title}\n\n{statement}', task.get_id()
