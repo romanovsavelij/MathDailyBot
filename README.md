@@ -14,6 +14,8 @@ It is made sure that you don't get the same probem twice.
 
 Система состоит из трех компонентов: `PostgreSQL`, бекенда бота и `nginx`. При переходе по адресу `127.0.0.1:1234/images/gopher.png` вы увидете картинку, которую отдает `nginx`. 
 
+Образ с бекендом бота залит в публичный репозиторий [romanovsavelij/math-bot-daily-backend](https://hub.docker.com/r/romanovsavelij/math-bot-daily-backend). 
+
 Запускать так:
 ```bash
 docker-compose up
