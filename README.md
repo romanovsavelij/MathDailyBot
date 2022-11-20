@@ -10,9 +10,8 @@ The possible commands are:
 
 It is made sure that you don't get the same probem twice.
 
-The problems are stored on the following [website](https://airtable.com/invite/l?inviteId=inv4p7fxkFKxyHHFv&inviteToken=16f009a7c85eb7ae8e36f3892837b3390a4351fec7bf32395b8a8134ecae44d7).
+## Run
 
-## Installation
-
-To launch the project run the following command to install all the packages used in the project:
-pip3 install -r requirements.txt
+```bash
+docker-compose up
+```
