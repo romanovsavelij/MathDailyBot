@@ -16,6 +16,7 @@ It is made sure that you don't get the same probem twice.
 
 Образ с бекендом бота залит в публичный репозиторий [romanovsavelij/math-bot-daily-backend](https://hub.docker.com/r/romanovsavelij/math-bot-daily-backend). 
 
+Перед запуском надо попросить у [@romanovsavelij](https://t.me/romanovsavelij) файл `key.py` с ключами и добавить его в папку `src/` проект. 
 Запускать так:
 ```bash
 docker-compose up
