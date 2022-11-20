@@ -16,12 +16,8 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 class TGBot:
     def __init__(self):
-        REQUEST_KWARGS = {
-            'proxy_url': PROXY,
-        }
-
         self.task_manager = TaskManager()
-        self.updater = Updater(token=TG_BOT_TOKEN, use_context=True, request_kwargs=REQUEST_KWARGS)
+        self.updater = Updater(token=TG_BOT_TOKEN, use_context=True)
         self.add_handlers()
 
     def add_handlers(self):

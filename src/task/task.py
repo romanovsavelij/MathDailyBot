@@ -66,3 +66,16 @@ class Task:
     @staticmethod
     def get_subjects_list():
         return ['Logic', 'Set theory', 'Combinatorics']
+
+    def __str__(self) -> str:
+        return f"('{self.name}', )"
+        #         cur = self.conn.cursor()
+        # cur.execute("""CREATE TABLE tasks (
+        #         name varchar(255),
+        #         statement varchar(1024),
+        #         subject varchar(255),
+        #         level int,
+        #         hint varchar(255),
+        #         solution varchar(1024)
+        #     )
+        # """)
