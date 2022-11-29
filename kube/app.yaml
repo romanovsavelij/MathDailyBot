@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: math-bot-backend
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: math-bot-backend
+  template:
+    metadata:
+      name: math-bot-backend
+      labels:
+        app: math-bot-backend
+    spec:
+      containers:
+        - name: math-bot-backend
+          env:
+            - name: DB_HOST
+              value: postgres
+          image: math-bot-backend
+          imagePullPolicy: IfNotPresent
+        - name: nginx
+          image: mathdailybot-nginx
+          imagePullPolicy: IfNotPresent
