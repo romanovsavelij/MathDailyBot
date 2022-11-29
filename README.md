@@ -34,6 +34,11 @@ minikube start
 docker build -t math-bot-backend .
 ```
 
+Пробросим локально собранный образ в minikube
+```bash
+minikube image load math-bot-backend
+```
+
 Создаем deployment базы с volume под нее
 ```bash
 kubectl create -f kube/postgres.yaml
