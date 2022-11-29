@@ -21,3 +21,42 @@ It is made sure that you don't get the same probem twice.
 ```bash
 docker-compose up
 ```
+
+## k8s
+
+Запуск k8s через minikube
+```bash
+minikube start
+```
+
+Сборка контейнера бота
+```bash
+docker build -t math-bot-backend .
+```
+
+Создаем deployment базы с volume под нее
+```bash
+kubectl create -f kube/postgres.yaml
+```
+
+Создаем deployment бота
+```bash
+kubectl create -f kube/app.yaml
+```
+
+Открываем доступ изве через LoadBalancer
+```bash
+kubectl expose deployment math-bot-backend -- type=LoadBalancer ---port=8080
+```
+
+Пробросим порт для nginx
+```bash
+kubectl port-forward math-bot-backend 1234:80
+```
+
+Теперь можем посмотреть состояние наше кластера, все должно быть успешно запущено
+```bash
+minikube dashboard
+```
+
+По адресу `http://localhost:1234/images/gopher.png` видим локально гофера, значит все запустилось. 
