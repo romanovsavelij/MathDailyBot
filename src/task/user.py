@@ -1,6 +1,6 @@
 from typing import List, Dict
 
-from task.task import Task
+from src.task.task import Task
 
 
 class User:
@@ -29,6 +29,9 @@ class User:
         return task in self.solved_tasks
 
     def is_given(self, task: Task):
+        if task is None:
+            return False
+
         for it in self.given_tasks:
             if it.get_id() == task.get_id():
                 return True
