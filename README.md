@@ -65,3 +65,25 @@ minikube dashboard
 ```
 
 По адресу `http://localhost:1234/images/gopher.png` видим локально гофера, значит все запустилось. 
+
+## ansible
+
+В папке [ansible](https://github.com/romanovsavelij/MathDailyBot/tree/master/ansible) лежат все настройки для ansible. 
+В `inventory.hosts` обьявлены хосты, куда мы будем деплоить сервис, в `deploy_playbook.yml` плейбук для деплоя.
+В `server/Dockerfile` лежит исходник образа, который запускается на чистой машине, где выкачиваются все нужные зависимости и поднимается сервис. 
+
+Деплоить так:
+```bash
+ansible-playbook ansible/deploy_playbook.yml -i ansible/inventory.hosts
+```
+
+## jenkins
+
+По коммиту запускается jenkins pipeline, который проверяет код и делает деплой на голую продакш машину. 
+
+А запускается по коммиту, прогоняет тесты отдельном контейнере через pytest, отбрасывает результаты тестов в allure, прогоняет анализ кода в Sonar и в конце делает деплой сервиса на продакш хост. 
+
+Нужные для jenkins скрипты лежат [тут](https://github.com/romanovsavelij/MathDailyBot/tree/master/jenkins). \
+Пайплайн можно настроить [тут](http://185.151.240.150:8080/job/build/). \
+[Sonar](http://185.151.240.150:9000/dashboard?id=sonarqube-mathdailybot) \
+[Allure](http://185.151.240.150:8080/job/build/allure/)
