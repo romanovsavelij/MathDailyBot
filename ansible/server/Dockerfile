@@ -1,10 +1,22 @@
-FROM alpine:3.17
+FROM ubuntu:latest
 
-RUN apk add --no-cache openssh-client ansible git sshpass openssh openrc
+USER root
+RUN apt update -y \
+    && apt install docker.io curl -y
 
-RUN mkdir -p /root/.ssh
-RUN echo "Host *" > /root/.ssh/config && echo " StrictHostKeyChecking no" >> /root/.ssh/config
-EXPOSE 22
+RUN curl -L "https://github.com/docker/compose/releases/download/v2.12.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
 
-COPY ./ansible /ansible
-WORKDIR /ansible
+RUN apt install git
+
+RUN git clone https://github.com/romanovsavelij/MathDailyBot
+WORKDIR /MathDailyBot
+
+# RUN apt install systemctl -y
+# RUN whoami
+# RUN systemctl status docker
+# RUN systemctl start docker
+# RUN docker run hello-world
+# RUN /usr/local/bin/docker-compose up
+
+CMD ["docker-compose", "up", "-d"]

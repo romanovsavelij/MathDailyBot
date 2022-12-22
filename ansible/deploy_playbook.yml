@@ -1,0 +1,32 @@
+- name: Deploy
+  hosts: all
+  become: no
+
+  tasks:
+    - name: ping
+      ping:
+
+    - name: pwd
+      shell:
+        cmd: "pwd"
+      register: playbook_path_output
+    - debug: var=playbook_path_output.stdout
+
+    - name: Copy Dockerfile
+      copy:
+        src: server/Dockerfile
+        dest: Dockerfile
+
+    - name: hello
+      shell:
+        cmd: "sudo docker run hello-world"
+
+    - name: build deploy image
+      shell:
+        cmd: "sudo docker build -t server_deploy ."
+      async: 10
+      poll: 10
+
+    - name: start server components
+      shell:
+        cmd: "sudo docker run -v /var/run/docker.sock:/var/run/docker.sock server_deploy"
