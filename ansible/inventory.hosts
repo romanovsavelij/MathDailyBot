@@ -1,2 +1,2 @@
 [servers]
-    deploy_server ansible_user=saveliy ansible_host=51.250.107.214 ansible_ssh_private_key_file=~/.ssh/id_rsa_yandex ansible_password=musPu4uF
+    deploy_server ansible_user=ubuntu ansible_host=185.151.240.150 ansible_ssh_private_key_file=~/.ssh/id_rsa_alex

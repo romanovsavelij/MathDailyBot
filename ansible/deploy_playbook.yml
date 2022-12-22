@@ -24,8 +24,6 @@
     - name: build deploy image
       shell:
         cmd: "sudo docker build -t server_deploy ."
-      async: 10
-      poll: 10
 
     - name: start server components
       shell:

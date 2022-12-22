@@ -8,3 +8,6 @@ pyvenv.cfg
 lib
 bin
 .vscode
+src/.scannerwork
+jenkins/allure_results
+jenkins/jenkins_data
